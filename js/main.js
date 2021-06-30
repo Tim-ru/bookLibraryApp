@@ -1,64 +1,101 @@
 window.onload = function () {
     const writeBookRadio = document.getElementById('writeBookRadio')
     const loadBookRadio = document.getElementById('loadBookRadio')
-    const writeBook = document.querySelector('.writeBook')
-    const loadBook = document.querySelector('.loadBook')
+    const writeForm = document.querySelector('.writeForm')
+    const loadForm = document.querySelector('.loadForm')
     const loadButton = document.querySelector('.loadButton')
     const bookList = document.querySelector('.list')
+    const listItems = document.querySelectorAll('.listItem')
 
     const bookStorage = []
+    localStorage.removeItem('language')
 
+    for (let i = 0; i < localStorage.length; i++) {
+        const element = localStorage.key([i]);
+        console.log(element);
+        let item = document.createElement('li')
+        item.textContent = element
+        item.classList.add('listItem')
+        bookList.appendChild(item)
+    }
 
     writeBookRadio.addEventListener('change', function () {
         if (this.checked) {
-            writeBook.style.display = 'block'
-            loadBook.style.display = 'none'
+            writeForm.style.display = 'block'
+            loadForm.style.display = 'none'
         }
     })
 
     loadBookRadio.addEventListener('change', function () {
         if (this.checked) {
-            loadBook.style.display = 'block'
-            writeBook.style.display = 'none'
+            loadForm.style.display = 'block'
+            writeForm.style.display = 'none'
         }
     })
 
     loadButton.addEventListener('click', addBook)
-
-    const url = 'https://apiinterns.osora.ru/'
-    const form = document.querySelector('.loadForm')
-    form.addEventListener('submit', (e) => {
-        e.preventDefault()
-
-        const files = document.querySelector('[type=file]').files;
-        const formData = new FormData();
-
-        // for (let i = 0; i < files.length; i++) {
-        //     let file = files[i]
-
-        //     formData.append('files[]', file)
-        //     fetch(url, {
-        //         method: 'POST',
-        //         body: formData,
-        //     }).then((response) => {
-        //         console.log(response)
-        //     })
-        // }
-
-
-        // отослать
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url);
-        xhr.send(formData);
-        console.log(formData.get('files[]'));
+    bookList.addEventListener('click', function openBook(e) {
+        if (e.target.classList[0] == 'listItem') {
+            const bookName = e.target.textContent
+            const bookText = localStorage.getItem(bookName)
+            let text = JSON.parse(bookText)
+            document.querySelector('.bookTitle').textContent = bookName
+            document.querySelector('.bookText').textContent = text.bookText
+        }
     })
+
+    const url = 'https://jsonplaceholder.typicode.com/users'
+    const loadBook = document.querySelector('.loadForm')
+    // loadBook.addEventListener('submit', (e) => {
+    //     e.preventDefault()
+
+    //     const formData = new FormData(loadForm);
+
+    //     // отослать
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open("POST", url);
+    //     xhr.send()
+    //     xhr.onload = function () {
+    //         let answer = this.response;
+    //         bookStorage.push({
+    //             login: formData.get('login'),
+    //             text: JSON.parse(answer).text,
+    //             readed: false
+    //         })
+    //         addBook(e)
+    //         console.log(bookStorage);
+    //     }
+
+    // })
+
+    // function sendRequest(method, url, body = null) {
+    //     const headers = {
+    //         'Content-Type': 'application/json'
+    //     }
+    //     return fetch(url, {
+    //         method: method,
+    //         body: JSON.stringify(body),
+    //         headers: headers
+    //     }).then(response => {
+    //         return response.json()
+    //     })
+    // }
+
+
+    // const body = {
+    //     login: formData.get('login'),
+    //     text: 'text',
+    //     readed: false
+    // }
+
+    // sendRequest('POST', url, body)
+    //     .then(data => console.log(data))
+    //     .catch(err => console.log(err))
+
 
     function addBook() {
         const bookName = document.querySelector('.bookName').value
         const textarea = document.querySelector('.textarea').value
-        document.querySelector('.bookTitle').textContent = bookName
-        document.querySelector('.bookText').textContent = textarea
-        console.log(bookStorage);
         localStorage.setItem(bookName, JSON.stringify(
             { bookName: bookName, bookText: textarea }
         ))
@@ -77,6 +114,7 @@ window.onload = function () {
 
     // }
 
-    
-    
+
+
+
 }

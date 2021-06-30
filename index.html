@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="app">
         <div class="library">
@@ -19,39 +21,39 @@
             <div class="booksList">
                 <h3>Список книг</h3>
                 <ul class="list">
-                    <li class="listItem">Book 1</li>
                 </ul>
             </div>
             <div class="addBook">
                 <h3>Добавить книгу</h3>
-                <form action="" class="loadForm">
+                <div>
 
-                <input type="radio" id="writeBookRadio" value="Написать" name="book">
-                <label for="writeBookForm">Написать самому</label>
-                
-                <input type="radio" id="loadBookRadio" name="book">
-                <label for="loadBookForm">Загрузить из файла</label>
+                    <input type="radio" id="writeBookRadio" value="Написать" name="book">
+                    <label for="writeBookForm">Написать самому</label>
 
-                <div class="writeBook">
-                    <p>Название</p>
-                    <input class="bookName" name="bookName" value="Книга 1">
-                    <textarea class="textarea" type="text" placeholder="Текст..."></textarea>
-                    <button class="loadButton">Добавить</button>
+                    <input type="radio" id="loadBookRadio" name="book">
+                    <label for="loadBookForm">Загрузить из файла</label>
+
+                    <form class="writeForm" name="writeForm">
+                        <p>Название</p>
+                        <input class="bookName" name="bookName" value="Книга 1">
+                        <textarea class="textarea" type="text" placeholder="Текст..."></textarea>
+                        <button class="addButton">Добавить</button>
+                    </form>
+                    <form class="loadForm" name="loadForm">
+                        <input type="text" name="bookName"> Название</p>
+                        <input type="file" name="files[]" multiple="multiple" accept="text/*">
+                        <button class="loadButton">Загрузить</button>
+                    </form>
                 </div>
-                <div class="loadBook">
-                    <input type="text"> Название</p>
-                    <input type="file" name="files[]" multiple="multiple" accept="text/*">
-                    <button class="loadButton">Загрузить</button>
-                </div>
-                </form>
             </div>
         </div>
         <div class="book">
             <h3>Открытая книга для чтения</h3>
             <div class="bookTitle"></div>
-            <p class="bookText"></з>
+            <p class="bookText"></p>
         </div>
     </div>
     <script src="js/main.js"></script>
 </body>
+
 </html>
