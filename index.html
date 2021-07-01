@@ -33,15 +33,15 @@
                     <input type="radio" id="loadBookRadio" name="book">
                     <label for="loadBookForm">Загрузить из файла</label>
 
-                    <form class="writeForm" name="writeForm">
+                    <form class="writeForm" name="writeForm" enctype="multipart/form-data">
                         <p>Название</p>
-                        <input class="bookName" name="bookName" value="Книга 1">
+                        <input class="bookName" name="login" value="Книга 1">
                         <textarea class="textarea" type="text" placeholder="Текст..."></textarea>
                         <button class="addButton">Добавить</button>
                     </form>
-                    <form class="loadForm" name="loadForm">
-                        <input type="text" name="bookName"> Название</p>
-                        <input type="file" name="files[]" multiple="multiple" accept="text/*">
+                    <form class="loadForm" name="loadForm" enctype="multipart/form-data">
+                        <input type="text" name="login" class="bookTitle"> Название</p>
+                        <input type="file" name="file" accept="text/*">
                         <button class="loadButton">Загрузить</button>
                     </form>
                 </div>
@@ -54,6 +54,7 @@
         </div>
     </div>
     <script src="js/main.js"></script>
+    <script src="js/xhr.js"></script>
 </body>
 
 </html>
