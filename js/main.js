@@ -1,19 +1,23 @@
-window.onload = function () {
-    
+function main() {
+    const writeBookRadio = document.getElementById('writeBookRadio')
+const loadBookRadio = document.getElementById('loadBookRadio')
     const writeForm = document.querySelector('.writeForm')
-    const loadForm = document.querySelector('.loadForm')
     const bookList = document.querySelector('.list')
-    const listItems = document.querySelectorAll('.listItem')
-
-    for (let i = 0; i < localStorage.length; i++) {
-        const element = localStorage.key([i]);
-        console.log(element);
-        let item = document.createElement('li')
-        item.textContent = element
-        item.classList.add('listItem')
-        bookList.appendChild(item)
-    }
-
+    
+    
+    writeBookRadio.addEventListener('change', function () {
+        if (this.checked) {
+            writeForm.style.display = 'block'
+            loadForm.style.display = 'none'
+        }
+    })
+    
+    loadBookRadio.addEventListener('change', function () {
+        if (this.checked) {
+            loadForm.style.display = 'block'
+            writeForm.style.display = 'none'
+        }
+    })
 
     addButton.addEventListener('click', writeForm)
     bookList.addEventListener('click', function openBook(e) {
@@ -26,3 +30,4 @@ window.onload = function () {
         }
     })
 }
+
