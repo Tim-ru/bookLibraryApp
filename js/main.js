@@ -1,5 +1,7 @@
 const writeBookRadio = document.getElementById('writeBookRadio')
 const loadBookRadio = document.getElementById('loadBookRadio')
+const bookList = document.querySelector('.list')
+
 
 writeBookRadio.addEventListener('change', function () {
     if (this.checked) {
@@ -15,23 +17,27 @@ loadBookRadio.addEventListener('change', function () {
     }
 })
 
-function main() {
+bookList.addEventListener('click', function openBook(e) {
+    let books = JSON.parse(localStorage['bookStorage'])
+    let key = e.target.textContent
+    let item = books.find(item => item.login == key)
+    console.log(item);
+    if (e.target.classList[0] == 'listItem') {
+        const bookName = key
+        const bookText = item.text
+        console.log(typeof bookName);
+        document.querySelector('.bookTitleText').textContent = e.target.textContent
+        document.querySelector('.bookText').textContent = bookText
+    }
+})
 
-    const writeForm = document.querySelector('.writeForm')
-    const bookList = document.querySelector('.list')
-
-
-
-
-    addButton.addEventListener('click', writeForm)
-    bookList.addEventListener('click', function openBook(e) {
-        if (e.target.classList[0] == 'listItem') {
-            const bookName = e.target.textContent
-            const bookText = localStorage.getItem(bookName)
-            let text = JSON.parse(bookText)
-            document.querySelector('.bookTitle').textContent = bookName
-            document.querySelector('.bookText').textContent = text.bookText
-        }
-    })
+function render(arr) {
+    bookList.innerHTML = ''
+    arr.forEach(e => {
+        let item = document.createElement('li')
+        item.textContent = e.login
+        console.log(e.login);
+        item.classList.add('listItem')
+        bookList.appendChild(item)
+    });
 }
-
