@@ -44,4 +44,18 @@ ul, li {
 .listItem {
     width: 100px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+    background-color: rgb(241, 183, 111);
+    padding: 5px 10px;
+}
+
+.isRead {
+    background-color: #fff;
+}
+
+.listItem button {
+    margin-left: 5px;
 }
