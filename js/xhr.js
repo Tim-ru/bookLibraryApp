@@ -20,8 +20,8 @@ function sendRequest() {
         bookStorage.push({
             name: formData.get('name'),
             text: JSON.parse(this.response).text,
-            wasRead: false,
-            isFavorite: false
+            isRead: false,
+            isFavorite: false,
         });
         localStorage.setItem('bookStorage', JSON.stringify(bookStorage));
         render(bookStorage)
@@ -32,15 +32,13 @@ function sendRequest() {
 function writeBook() {
     if (localStorage['bookStorage'] != undefined) {
         bookStorage = JSON.parse(localStorage['bookStorage'])
-    } else {
-        alert('Список книг пуст')
     }
     let formData = new FormData(writeForm);
     bookStorage.push({
         name: formData.get('name'),
         text: formData.get('text'),
-        wasRead: false,
-        isFavorite: false
+        isRead: false,
+        isFavorite: false,
     })
     localStorage.setItem('bookStorage', JSON.stringify(bookStorage))
     render(bookStorage)
