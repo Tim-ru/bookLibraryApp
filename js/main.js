@@ -66,7 +66,7 @@ function render(arr) {
         changeBtn.classList.add('changeStatusBtn')
         editBtn.classList.add('editBtn')
 
-        item.ondragstart = drag
+        // item.ondragstart = drag
 
         if (e.isRead === true) {
             item.classList.add('isRead')
