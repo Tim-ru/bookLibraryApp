@@ -42,12 +42,17 @@ function render(arr) {
     books.forEach(e => {
         // create item
         let item = document.createElement('li')
+        if (e.isFavorite == true) {
+            favoritesBookField.appendChild(item)
+        } else {
+            bookList.appendChild(item)
+        }
+
         let p = document.createElement('p')
         p.textContent = e.name
         p.classList.add('listItemName')
         item.appendChild(p)
         item.classList.add('listItem')
-        item.setAttribute('draggable', true);
         // add buttons
         let readBtn = document.createElement('button')
         let deleteBtn = document.createElement('button')
@@ -65,8 +70,12 @@ function render(arr) {
         deleteBtn.classList.add('deleteBtn')
         changeBtn.classList.add('changeStatusBtn')
         editBtn.classList.add('editBtn')
+        let id = e.id.toString()
 
-        // item.ondragstart = drag
+        item.ondragstart = drag
+        item.ondragend = dragend
+        item.setAttribute('id', id)
+        item.setAttribute('draggable', true);
 
         if (e.isRead === true) {
             item.classList.add('isRead')
@@ -75,8 +84,6 @@ function render(arr) {
         }
 
 
-        bookList.appendChild(item)
-        
     });
 }
 
@@ -99,7 +106,7 @@ function readBook(e) {
     let num = books.indexOf(item)
     books[num].isRead = !books[num].isRead
     localStorage.setItem('bookStorage', JSON.stringify(books))
-    render(JSON.parse(localStorage['bookStorage']))
+    render()
     sort()
 }
 
@@ -111,7 +118,7 @@ function editBtn(e) {
     let bookText = item.text;
     let editForm = document.createElement('form')
     editForm.classList.add('editForm')
-    
+
     let changeTitle = document.createElement('h4')
     changeTitle.textContent = 'Редактирование книги'
 
@@ -124,7 +131,7 @@ function editBtn(e) {
 
     let changeFormBtn = document.createElement('button')
     changeFormBtn.textContent = 'Изменить'
-    changeFormBtn.onclick = function() {
+    changeFormBtn.onclick = function () {
         books[num].login = changeInput.value
         books[num].text = changeTextarea.value
         localStorage.setItem('bookStorage', JSON.stringify(books))
@@ -146,20 +153,44 @@ function sort() {
 }
 
 // drag and drop
-// favoritesBookField.ondragover = allowDrop
+favoritesBookField.ondragover = allowDrop
+favoritesBookField.ondrop = drop
 
-// function allowDrop(event) {
-//     event.preventDefault()
-// }
+function allowDrop(event) {
+    event.preventDefault()
+}
 
-// function drag (event) {
-//     event.dataTransfer.setData('id', event.target.id);
-// }
+let dropElement
+let list
+let listItem
 
-// favoritesBookField.ondrop = drop
+function drag(event) {
+    event.dataTransfer.setData('id', event.target.id);
+    dropElement = event.target
+    favoritesBookField.style.border = "2px dashed black"
+    list = event.target.parentElement
+    listItem = event.target
 
-// function drop(event) {
-//     let itemId = event.
-// }
+}
 
-window.onload = render(JSON.parse(localStorage['bookStorage']))
+function dragend(event) {
+    // bookList.innerHTML = ''
+    dropElement = event.target
+    let itemId = event.dataTransfer.getData('id')
+    render()
+    window.location.reload();
+}
+
+function drop(event) {
+    let itemId = event.dataTransfer.getData('id')
+    // let bookName = dropElement.querySelector('.listItemName').textContent
+    let books = JSON.parse(localStorage['bookStorage'])
+    let item = books.find(item => item.id == itemId)
+    let num = books.indexOf(item)
+    books[num].isFavorite = true
+    // event.target.append(document.getElementById(itemId))
+    localStorage.setItem('bookStorage', JSON.stringify(books))
+    favoritesBookField.style.border = ""
+}
+
+window.onload = render

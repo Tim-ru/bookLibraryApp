@@ -22,6 +22,7 @@ function sendRequest() {
             text: JSON.parse(this.response).text,
             isRead: false,
             isFavorite: false,
+            id: Date.now()
         });
         localStorage.setItem('bookStorage', JSON.stringify(bookStorage));
         render(bookStorage)
@@ -39,6 +40,7 @@ function writeBook() {
         text: formData.get('text'),
         isRead: false,
         isFavorite: false,
+        id: Date.now()
     })
     localStorage.setItem('bookStorage', JSON.stringify(bookStorage))
     render(bookStorage)
