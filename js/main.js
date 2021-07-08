@@ -26,11 +26,18 @@ bookList.addEventListener('click', function (e) {
     e.target.classList[0] == 'editBtn' ? editBtn(e) : false
 })
 
+favoritesBookField.addEventListener('click', function (e) {
+    e.target.classList[0] == 'readBtn' ? openBook(e) : false
+    e.target.classList[0] == 'deleteBtn' ? deleteBook(e) : false
+    e.target.classList[0] == 'changeStatusBtn' ? readBook(e) : false
+    e.target.classList[0] == 'editBtn' ? editBtn(e) : false
+})
+
 function openBook(e) {
     document.querySelector('.book').innerHTML = ''
     let books = JSON.parse(localStorage['bookStorage'])
-    let key = e.target.parentElement.childNodes[0].textContent
-    let item = books.find(item => item.name == key)
+    let item = books.find(item => item.id == e.target.parentElement.id)
+    
     let bookName = item.name
     let bookText = item.text
     let readArea = document.createElement('div')
@@ -50,6 +57,7 @@ function openBook(e) {
 function render(arr) {
     sort()
     bookList.innerHTML = ''
+    favoritesBookField.innerHTML = ''
     let books = JSON.parse(localStorage['bookStorage'])
     books.forEach(e => {
         // create item
@@ -59,7 +67,6 @@ function render(arr) {
         } else {
             bookList.appendChild(item)
         }
-
         let p = document.createElement('p')
         p.textContent = e.name
         p.classList.add('listItemName')
@@ -112,21 +119,20 @@ function deleteBook(e) {
 function readBook(e) {
     let books = JSON.parse(localStorage['bookStorage'])
     let bookName = e.target.parentElement.childNodes[0].textContent;
-    let item = books.find(item => item.name == bookName)
+    console.log(e.target.parentElement.id);
+    let item = books.find(item => item.id == e.target.parentElement.id)
     let num = books.indexOf(item)
     books[num].isRead = !books[num].isRead
-    
     localStorage.setItem('bookStorage', JSON.stringify(books))
-    window.location.reload();
+    render()
     sort()
 }
 
 function editBtn(e) {
-    
     document.querySelector('.book').innerHTML = ''
     let books = JSON.parse(localStorage['bookStorage'])
     let bookName = e.target.parentElement.childNodes[0].textContent;
-    let item = books.find(item => item.name == bookName)
+    let item = books.find(item => item.id == e.target.parentElement.id)
     let num = books.indexOf(item)
     let bookText = item.text;
     let editForm = document.createElement('form')
@@ -146,11 +152,9 @@ function editBtn(e) {
     changeFormBtn.textContent = 'Изменить'
     
     changeFormBtn.onclick = function () {
-        
-        books[num].login = changeInput.value
+        books[num].name = changeInput.value
         books[num].text = changeTextarea.value
         localStorage.setItem('bookStorage', JSON.stringify(books))
-        
     }
 
     editForm.appendChild(changeTitle)
@@ -158,10 +162,6 @@ function editBtn(e) {
     editForm.appendChild(changeTextarea)
     editForm.appendChild(changeFormBtn)
     document.querySelector('.book').appendChild(editForm)
-    // editForm.
-    // writeForm.elements.name.value = bookName
-    // writeForm.elements.text.value = item.text
-    
 }
 
 function sort() {
@@ -191,7 +191,6 @@ function drag(event) {
     bookList.style.border = "2px dashed black"
     list = event.target.parentElement
     listItem = event.target
-
 }
 
 function dragend(event) {
@@ -199,12 +198,10 @@ function dragend(event) {
     favoritesBookField.innerHTML = ''
     dropElement = event.target
     render()
-    // window.location.reload();
 }
 
 function drop(event) {
     let itemId = event.dataTransfer.getData('id')
-    // let bookName = dropElement.querySelector('.listItemName').textContent
     let books = JSON.parse(localStorage['bookStorage'])
     let item = books.find(item => item.id == itemId)
     let num = books.indexOf(item)
@@ -215,9 +212,9 @@ function drop(event) {
     } else if (dropElement.parentElement == bookList){
         books[num].isFavorite = true
     }
-    // event.target.append(document.getElementById(itemId))
     localStorage.setItem('bookStorage', JSON.stringify(books))
     favoritesBookField.style.border = ""
+    bookList.style.border = ""
 }
 
 window.onload = render

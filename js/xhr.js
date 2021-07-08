@@ -18,7 +18,7 @@ function sendRequest() {
     xhr.open("POST", url);
     xhr.onload = function () {
         bookStorage.push({
-            name: formData.get('name'),
+            name: formData.get('login'),
             text: JSON.parse(this.response).text,
             isRead: false,
             isFavorite: false,
@@ -26,7 +26,9 @@ function sendRequest() {
         });
         localStorage.setItem('bookStorage', JSON.stringify(bookStorage));
         render(bookStorage)
+        console.log(JSON.parse(this.response));
     }
+
     xhr.send(formData);
 }
 
@@ -36,7 +38,7 @@ function writeBook() {
     }
     let formData = new FormData(writeForm);
     bookStorage.push({
-        name: formData.get('name'),
+        name: formData.get('login'),
         text: formData.get('text'),
         isRead: false,
         isFavorite: false,

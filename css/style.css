@@ -103,12 +103,12 @@ ul, li {
     align-items: center;
     width: 100%;
     margin-bottom: 5px;
-    background-color: rgb(241, 183, 111);
+    background-color: #fff;
     padding: 5px 10px;
 }
 
 .isRead {
-    background-color: #fff;
+    background-color: rgb(241, 183, 111);
 }
 
 .listItem button {
