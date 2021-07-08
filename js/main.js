@@ -94,8 +94,6 @@ function render(arr) {
         } else {
             item.classList.remove('isRead')
         }
-
-
     });
 }
 
@@ -117,8 +115,9 @@ function readBook(e) {
     let item = books.find(item => item.name == bookName)
     let num = books.indexOf(item)
     books[num].isRead = !books[num].isRead
+    
     localStorage.setItem('bookStorage', JSON.stringify(books))
-    render()
+    window.location.reload();
     sort()
 }
 
@@ -174,6 +173,8 @@ function sort() {
 // drag and drop
 favoritesBookField.ondragover = allowDrop
 favoritesBookField.ondrop = drop
+bookList.ondragover = allowDrop
+bookList.ondrop = drop
 
 function allowDrop(event) {
     event.preventDefault()
@@ -187,17 +188,18 @@ function drag(event) {
     event.dataTransfer.setData('id', event.target.id);
     dropElement = event.target
     favoritesBookField.style.border = "2px dashed black"
+    bookList.style.border = "2px dashed black"
     list = event.target.parentElement
     listItem = event.target
 
 }
 
 function dragend(event) {
-    // bookList.innerHTML = ''
+    bookList.innerHTML = ''
+    favoritesBookField.innerHTML = ''
     dropElement = event.target
-    let itemId = event.dataTransfer.getData('id')
     render()
-    window.location.reload();
+    // window.location.reload();
 }
 
 function drop(event) {
@@ -206,7 +208,13 @@ function drop(event) {
     let books = JSON.parse(localStorage['bookStorage'])
     let item = books.find(item => item.id == itemId)
     let num = books.indexOf(item)
+    console.log(dropElement.parentElement);
     books[num].isFavorite = true
+    if (dropElement.parentElement == favoritesBookField) {
+        books[num].isFavorite = false
+    } else if (dropElement.parentElement == bookList){
+        books[num].isFavorite = true
+    }
     // event.target.append(document.getElementById(itemId))
     localStorage.setItem('bookStorage', JSON.stringify(books))
     favoritesBookField.style.border = ""
