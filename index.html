@@ -25,32 +25,43 @@
             </div>
             <div class="addBook">
                 <h3>Добавить книгу</h3>
-                <div>
+                <div class="radioButtons">
 
-                    <input type="radio" id="writeBookRadio" value="Написать" name="book">
-                    <label for="writeBookForm">Написать самому</label>
-
-                    <input type="radio" id="loadBookRadio" name="book">
-                    <label for="loadBookForm">Загрузить из файла</label>
+                    <p>
+                        <input type="radio" id="writeBookRadio" value="Написать" name="book">
+                        <label for="writeBookForm">Написать самому</label>
+                    </p>
+                    <p>
+                        <input type="radio" id="loadBookRadio" name="book">
+                        <label for="loadBookForm">Загрузить из файла</label>
+                    </p>
 
                     <form class="writeForm" name="writeForm" enctype="multipart/form-data">
-                        <p>Название</p>
-                        <input class="bookName" name="name" value="Книга 1">
-                        <textarea class="textarea"  name='text' type="text" placeholder="Текст..."></textarea>
-                        <input type="button" class="addButton" value="Добавить" />
+
+                        <div class="container">
+                            <input class="bookName" name="name" value="Книга 1">
+                            <textarea class="textarea" name='text' type="text" placeholder="Текст..."></textarea>
+                            <input type="button" class="addButton" value="Добавить" />
+                        </div>
+
                     </form>
-                    <form class="loadForm" name="loadForm" enctype="multipart/form-data" >
-                        <input type="text" name="name" class="bookTitle"> Название
-                        <input type="file" name="file" accept="text/*">
-                        <input type="button" value="Загрузить" class="loadButton">
+                    <form class="loadForm" name="loadForm" enctype="multipart/form-data">
+                        <div class="loadContainer">
+                            <p>Название</p>
+                            <input type="text" name="name" class="bookTitle" placeholder="Название книги"> 
+                            <input type="file" name="file" accept="text/*" class="fileInput">
+                            <input type="button" value="Загрузить" class="loadButton">
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="book">
+        <div class="bookArea">
             <h3>Открытая книга для чтения</h3>
-            <h4 class="bookTitleText"></h4>
-            <p class="bookText"></p>
+            <div class="book">
+                <h4 class="bookTitleText"></h4>
+                <p class="bookText"></p>
+            </div>
         </div>
     </div>
     <script src="js/main.js"></script>

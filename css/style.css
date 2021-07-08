@@ -22,16 +22,71 @@ ul, li {
     display: none;
 }
 
+.container, .loadContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 92px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 5px;
+}
+
 .favoritesBookField {
     padding: 10px 0;
 }
 
-.loadBook {
-    
+.radioButtons {
+    display: flex;
+    flex-direction: column;
 }
 
-.book {
+.bookArea {
     margin-left: 30px;
+}
+
+.editForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    min-width: 415px;
+}
+
+.editForm h4 {
+    font-size: 16px;
+}
+
+.editForm input, .writeForm input {
+    min-width: 150px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 3px 12px;
+    border: 2px solid #181D1F;
+    background-color: #181d1f3d;
+    border-radius: 50px;
+}
+
+.editForm textarea, .textarea {
+    min-height: 92px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 5px;
+}
+
+.editForm button, .loadButton {
+    margin: 0 auto;
+    width: 150px;
+    padding: 5px 12px;
+    border: 2px solid #181D1F;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.editForm button:hover, .loadButton:hover {
+    background-color: #063338;
+    color: #fff;
 }
 
 .list {
@@ -58,4 +113,39 @@ ul, li {
 
 .listItem button {
     margin-left: 5px;
+}
+
+.addButton {
+    margin: 0 auto;
+    width: 150px;
+    padding: 5px 12px;
+    border: 2px solid #181D1F;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.addButton:hover {
+    background-color: #063338;
+    color: #fff;
+}
+
+.loadContainer p{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.loadContainer .bookTitle, .fileInput {
+    min-width: 150px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 3px 12px;
+    border: 2px solid #181D1F;
+    background-color: #181d1f3d;
+    border-radius: 50px;
+}
+
+.fileInput {
+
 }

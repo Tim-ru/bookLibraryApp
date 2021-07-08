@@ -2,6 +2,7 @@ const writeBookRadio = document.getElementById('writeBookRadio')
 const loadBookRadio = document.getElementById('loadBookRadio')
 const bookList = document.querySelector('.list')
 const favoritesBookField = document.querySelector('.favoritesBookField')
+const editFormField = document.querySelector('.editForm')
 
 
 writeBookRadio.addEventListener('change', function () {
@@ -26,13 +27,24 @@ bookList.addEventListener('click', function (e) {
 })
 
 function openBook(e) {
+    document.querySelector('.book').innerHTML = ''
     let books = JSON.parse(localStorage['bookStorage'])
     let key = e.target.parentElement.childNodes[0].textContent
     let item = books.find(item => item.name == key)
     let bookName = item.name
     let bookText = item.text
-    document.querySelector('.bookTitleText').textContent = bookName
-    document.querySelector('.bookText').textContent = bookText
+    let readArea = document.createElement('div')
+
+    let bookTitleText = document.createElement('h4')
+    bookTitleText.textContent = bookName
+
+    let bookTextContainer = document.createElement('p')
+    bookTextContainer.textContent = bookText
+
+    readArea.appendChild(bookTitleText)
+    readArea.appendChild(bookTextContainer)
+
+    document.querySelector('.book').appendChild(readArea)
 }
 
 function render(arr) {
@@ -111,6 +123,8 @@ function readBook(e) {
 }
 
 function editBtn(e) {
+    
+    document.querySelector('.book').innerHTML = ''
     let books = JSON.parse(localStorage['bookStorage'])
     let bookName = e.target.parentElement.childNodes[0].textContent;
     let item = books.find(item => item.name == bookName)
@@ -131,10 +145,13 @@ function editBtn(e) {
 
     let changeFormBtn = document.createElement('button')
     changeFormBtn.textContent = 'Изменить'
+    
     changeFormBtn.onclick = function () {
+        
         books[num].login = changeInput.value
         books[num].text = changeTextarea.value
         localStorage.setItem('bookStorage', JSON.stringify(books))
+        
     }
 
     editForm.appendChild(changeTitle)
@@ -142,8 +159,10 @@ function editBtn(e) {
     editForm.appendChild(changeTextarea)
     editForm.appendChild(changeFormBtn)
     document.querySelector('.book').appendChild(editForm)
+    // editForm.
     // writeForm.elements.name.value = bookName
     // writeForm.elements.text.value = item.text
+    
 }
 
 function sort() {
